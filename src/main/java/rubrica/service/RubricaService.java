@@ -1,6 +1,7 @@
 package rubrica.service;
 
 import rubrica.model.Persona;
+import rubrica.persistenza.PersonaRepository;
 
 import java.util.List;
 import java.util.Vector;
@@ -8,8 +9,17 @@ import java.util.Vector;
 public class RubricaService {
     private final List<Persona> persone= new Vector<>();
 
+    private final PersonaRepository repository;
+
     private static final int ETA_MINIMA = 0;
     private static final int ETA_MASSIMA = 150;
+
+    public RubricaService(PersonaRepository repository) {
+        this.repository = repository;
+        this.persone.addAll(repository.caricaTutte());
+    }
+
+
 
     /**
      * aggiunge una persona se non è gia presente
@@ -22,6 +32,7 @@ public class RubricaService {
 
         }
         persone.add(p);
+        repository.salvaTutte(persone);
     }
 
 
@@ -40,6 +51,7 @@ public class RubricaService {
         vecchia.setIndirizzo(nuova.getIndirizzo());
         vecchia.setTelefono(nuova.getTelefono());
         vecchia.setEta(nuova.getEta());
+        repository.salvaTutte(persone);
     }
 
     /**
@@ -51,6 +63,7 @@ public class RubricaService {
                 throw new ValidazioneException("La persona non esiste nella rubrica");
             }
             persone.remove(p);
+        repository.salvaTutte(persone);
     }
 
     /**
@@ -91,6 +104,9 @@ public class RubricaService {
         if (p.getEta() < ETA_MINIMA || p.getEta() > ETA_MASSIMA) {
             throw new ValidazioneException(
                     "L'età deve essere tra " + ETA_MINIMA + " e " + ETA_MASSIMA);
+        }
+        if (p.getIndirizzo().contains(";")||p.getTelefono().contains(";")||p.getNome().contains(";")||p.getCognome().contains(";")) {
+            throw new ValidazioneException("Il carattere ';' non è ammesso.");
         }
     }
 
