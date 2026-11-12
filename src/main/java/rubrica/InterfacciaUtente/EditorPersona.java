@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 
 /**
  * Modulo di inserimento/modifica di una persona.
- * Non conosce il service: al salvataggio esegue l'azione ricevuta dall'esterno.
+ *  al salvataggio esegue l'azione ricevuta dall'esterno.
  */
 public class EditorPersona extends JDialog {
 
@@ -35,7 +35,7 @@ public class EditorPersona extends JDialog {
         if (persona != null) {
             compilaCampi(persona);
         }
-        costruisciInterfaccia();
+        costruzioneInterfaccia();
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         pack();
@@ -50,8 +50,8 @@ public class EditorPersona extends JDialog {
         campoEta.setText(String.valueOf(p.getEta()));
     }
 
-    private void costruisciInterfaccia() {
-        // Una riga per campo: etichetta a sinistra, valore a destra
+    private void costruzioneInterfaccia() {
+        // Una riga per campo
         JPanel form = new JPanel(new GridLayout(5, 2, 8, 8));
         form.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         aggiungiRiga(form, "Nome", campoNome);
@@ -65,13 +65,22 @@ public class EditorPersona extends JDialog {
         salva.addActionListener(e -> salva());
         annulla.addActionListener(e -> dispose());
 
-        JPanel bottoni = new JPanel(new FlowLayout());
+        /*JPanel bottoni = new JPanel(new FlowLayout());
         bottoni.add(salva);
         bottoni.add(annulla);
 
         setLayout(new BorderLayout());
         add(form, BorderLayout.CENTER);
-        add(bottoni, BorderLayout.SOUTH);
+        add(bottoni, BorderLayout.SOUTH);*/
+        //extra 3
+        JToolBar barra = new JToolBar();
+        barra.setFloatable(false);
+        barra.add(salva);
+        barra.add(annulla);
+
+        setLayout(new BorderLayout());
+        add(barra, BorderLayout.NORTH);
+        add(form, BorderLayout.CENTER);
     }
 
     private void aggiungiRiga(JPanel pannello, String etichetta, JTextField campo) {

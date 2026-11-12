@@ -23,8 +23,10 @@ public class FinestraPrincipale extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(500, 400);
-        setLocationRelativeTo(null); // centra sullo schermo
+        setLocationRelativeTo(null);
     }
+
+
 
     private void costruisciInterfaccia() {
         setLayout(new BorderLayout());
@@ -38,12 +40,14 @@ public class FinestraPrincipale extends JFrame {
         modifica.addActionListener(e -> modificaPersona());
         elimina.addActionListener(e -> eliminaPersona());
 
-        JPanel pannelloBottoni = new JPanel(new FlowLayout());
-        pannelloBottoni.add(nuovo);
-        pannelloBottoni.add(modifica);
-        pannelloBottoni.add(elimina);
-        add(pannelloBottoni, BorderLayout.SOUTH);
+        JToolBar barra = new JToolBar();
+        barra.setFloatable(false);
+        barra.add(nuovo);
+        barra.add(modifica);
+        barra.add(elimina);
+        add(barra, BorderLayout.NORTH);
     }
+
 
     private void nuovaPersona() {
         EditorPersona editor = new EditorPersona(this, null, service::aggiungiPersona);
