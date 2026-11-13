@@ -41,4 +41,4 @@ build/
 utenti.txt
 informazioni.txt
 informazioni/
-credenziali_database.properties
+credenziali_db.properties
