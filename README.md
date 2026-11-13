@@ -39,6 +39,3 @@ o MySQL.
 ## Versioni (tag Git)
 v1.0-base, v1.1-toolbar, v1.2-cartella, v1.3-login, v1.4-mysql
 
-## Limiti noti
-- Il carattere `;` non è ammesso nei campi
-- Hash SHA-256 senza sale (adatto a un progetto didattico)
